@@ -1,0 +1,12 @@
+/* Navbar.css */
+.navbar {
+    background-color: #37e1ff;
+    color: rgb(11, 9, 9);
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .logo {
+    font-weight: bold;
+  }

@@ -1,0 +1,185 @@
+/* Home.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #043cf3;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    z-index: 1000; /* Ensure the navbar stays on top */
+  }
+  
+  .weather-display {
+    flex: 1;
+    padding: 20px;
+    margin-top: 60px; /* Space for fixed navbar */
+    margin-bottom: 60px; /* Space for fixed input */
+    background-color: #f0f0f0;
+    overflow-y: auto; /* Make the weather display scrollable */
+  }
+  
+  .weather-card {
+    text-align: center;
+  }
+  
+  .current-weather {
+    margin-bottom: 10px;
+  }
+  
+  .weather-icon {
+    font-size: 36px;
+    margin: 5px 0;
+  }
+  
+  .hourly-forecast, .daily-forecast {
+    margin-top: 10px;
+  }
+  
+  .carousel-item {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Center 3 items */
+    gap: 5px;
+    justify-content: center; /* Center the grid */
+  }
+  
+  .forecast-item {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure the input stays on top */
+  }
+  
+  .input-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input-container input {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .input-container button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    border-color: #555;
+    border-width: 1px;
+  }
+  
+  .input-container button:hover {
+    background-color: #555;
+  }
+
+  .weather-chain {
+    display: flex;
+    justify-content: space-around;
+    overflow-x: auto;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+.weather-item {
+    text-align: center;
+    min-width: 60px;
+}
+
+.weather-icon {
+    font-size: 24px;
+}
+/* Home.css */
+
+
+/* Custom styles for the carousel arrows */
+.carousel .control-arrow {
+  opacity: 1 !important;   /* Make arrows always visible */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  background-color: rgba(255, 255, 255, 0.7); /* Light background color */
+}
+
+.carousel .control-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker background on hover */
+}
+
+/* Adjust arrow size and position */
+.carousel .control-prev.control-arrow,
+.carousel .control-next.control-arrow {
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: none;
+}
+
+/* Arrow icon styles */
+.carousel .control-prev.control-arrow:before,
+.carousel .control-next.control-arrow:before {
+  font-size: 24px;
+  color: black; /* Default arrow color */
+}
+
+.carousel .control-prev.control-arrow:hover:before,
+.carousel .control-next.control-arrow:hover:before {
+  color: white; /* Arrow color on hover */
+}
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .home-container {
+      flex-direction: column;
+    }
+  
+    .weather-display, .input-container {
+      margin: 10px 0;
+    }
+  
+    .forecast-grid {
+      grid-template-columns: 1fr;
+      justify-content: center;
+    }
+  }
+  
