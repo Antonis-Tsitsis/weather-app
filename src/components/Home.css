@@ -1,4 +1,4 @@
-/* Home.css */
+
 body, html {
     margin: 0;
     padding: 0;
@@ -11,6 +11,7 @@ body, html {
     justify-content: space-between;
     height: 100%;
     overflow: hidden;
+    padding-top: 10%;
   }
   
   .navbar {
@@ -18,21 +19,21 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #043cf3;
+    background-color: #48ceff;
     color: white;
     padding: 15px;
     text-align: center;
     font-size: 24px;
-    z-index: 1000; /* Ensure the navbar stays on top */
+    z-index: 1000;
   }
   
   .weather-display {
     flex: 1;
     padding: 20px;
-    margin-top: 60px; /* Space for fixed navbar */
-    margin-bottom: 60px; /* Space for fixed input */
+    margin-top: 60px; 
+    margin-bottom: 60px; 
     background-color: #f0f0f0;
-    overflow-y: auto; /* Make the weather display scrollable */
+    overflow-y: auto;
   }
   
   .weather-card {
@@ -43,10 +44,12 @@ body, html {
     margin-bottom: 10px;
   }
   
-  .weather-icon {
-    font-size: 36px;
-    margin: 5px 0;
-  }
+  .weather-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
   
   .hourly-forecast, .daily-forecast {
     margin-top: 10px;
@@ -62,9 +65,9 @@ body, html {
   
   .forecast-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Center 3 items */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 5px;
-    justify-content: center; /* Center the grid */
+    justify-content: center; 
   }
   
   .forecast-item {
@@ -82,8 +85,9 @@ body, html {
     padding: 10px;
     background-color: #f0f0f0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure the input stays on top */
+    z-index: 1000; 
   }
+
   
   .input-container form {
     display: flex;
@@ -129,21 +133,18 @@ body, html {
 .weather-icon {
     font-size: 24px;
 }
-/* Home.css */
 
 
-/* Custom styles for the carousel arrows */
 .carousel .control-arrow {
-  opacity: 1 !important;   /* Make arrows always visible */
-  transition: background-color 0.3s ease; /* Smooth transition for hover */
-  background-color: rgba(255, 255, 255, 0.7); /* Light background color */
+  opacity: 1 !important;  
+  transition: background-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.7); 
 }
 
 .carousel .control-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Darker background on hover */
+  background-color: rgba(0, 0, 0, 0.5); 
 }
 
-/* Adjust arrow size and position */
 .carousel .control-prev.control-arrow,
 .carousel .control-next.control-arrow {
   width: 40px;
@@ -154,20 +155,19 @@ body, html {
   border: none;
 }
 
-/* Arrow icon styles */
+
 .carousel .control-prev.control-arrow:before,
 .carousel .control-next.control-arrow:before {
   font-size: 24px;
-  color: black; /* Default arrow color */
+  color: black; 
 }
 
 .carousel .control-prev.control-arrow:hover:before,
 .carousel .control-next.control-arrow:hover:before {
-  color: white; /* Arrow color on hover */
+  color: white;
 }
 
-  
-  /* Responsive Design */
+
   @media (max-width: 768px) {
     .home-container {
       flex-direction: column;

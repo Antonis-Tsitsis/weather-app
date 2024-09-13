@@ -6,7 +6,18 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'chart.js/auto';
 import './Home.css';
 
-const geocodingApiKey = 'b48e01506af949a5bc1f774567a9a6c5'; // Replace with your OpenCage API key
+
+//Icons
+
+import cloudyIcon from '../assets/icons/cloudy.png';
+import cloudyRainIcon from '../assets/icons/cloudy1.png';
+import snowyIcon from '../assets/icons/snowy.png';
+import stormIcon from '../assets/icons/storm.png';
+import sunIcon from '../assets/icons/sun.png';
+import windIcon from '../assets/icons/wind.png';
+
+
+const geocodingApiKey = 'b48e01506af949a5bc1f774567a9a6c5'; 
 
 const Home = () => {
     const [location, setLocation] = useState('London');
@@ -33,8 +44,6 @@ const Home = () => {
             setCurrentWeather(response.data.current_weather);
             setHourlyForecast(response.data.hourly);
             setDailyForecast(response.data.daily);
-
-            // Assume sunrise and sunset data are available
             const sunriseTime = new Date(response.data.daily.sunrise[0]);
             const sunsetTime = new Date(response.data.daily.sunset[0]);
             setSunrise(sunriseTime);
@@ -70,14 +79,13 @@ const Home = () => {
         geocodeLocation(inputValue);
     };
 
-    // Get current hour for highlighting
+
     const currentHour = new Date().getHours();
     const currentDate = new Date();
 
-    // Check if it's day or night
+
     const isDayTime = sunrise && sunset && (currentDate >= sunrise && currentDate <= sunset);
 
-    // Prepare temperature data for the chart
     const temperatureData = {
         labels: hourlyForecast.time
             ? hourlyForecast.time.slice(0, 24).map((time) => {
@@ -92,12 +100,12 @@ const Home = () => {
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 fill: true,
-                tension: 0.4, // Make the line slightly curved
+                tension: 0.4, 
             },
         ],
     };
 
-    // Chart options with vertical line to highlight current time and dynamic background color
+
     const options = {
         scales: {
             x: {
@@ -135,7 +143,6 @@ const Home = () => {
                     const chartArea = chart.chartArea;
 
                     ctx.save();
-                    // Set dark background for night time
                     ctx.fillStyle = isDayTime ? 'white' : '#333';
                     ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
                     ctx.restore();
@@ -143,83 +150,90 @@ const Home = () => {
             },
         },
     };
-
-    // Get weather icons and wind speed for each hour
     const getWeatherIcon = (weatherCode) => {
         switch (weatherCode) {
             case 0:
-                return '☀️'; // Clear sky
+                return <img src={sunIcon} alt="Sunny" />;
             case 1:
             case 2:
             case 3:
-                return '⛅'; // Partly cloudy
+                return <img src={cloudyIcon} alt="Cloudy" />;
             case 45:
             case 48:
-                return '🌫️'; // Fog
+                return <img src={windIcon} alt="Windy" />;
             case 51:
             case 53:
             case 55:
             case 61:
             case 63:
             case 65:
-                return '🌧️'; // Drizzle/Rain
+                return <img src={cloudyRainIcon} alt="Rainy" />;
             case 71:
             case 73:
             case 75:
             case 85:
             case 86:
-                return '❄️'; // Snow
+                return <img src={snowyIcon} alt="Snowy" />;
             case 95:
             case 96:
             case 99:
-                return '⛈️'; // Thunderstorm
-            default:
-                return '-'; // Unknown weather code
+                return <img src={stormIcon} alt="Stormy" />;
+            default://return code if not found
+                return <p>{weatherCode}--</p>;
         }
     };
+    
 
-    // Render the hourly forecast as a carousel
     const renderHourlyCarousel = () => {
+        if (!hourlyForecast || !hourlyForecast.time || !hourlyForecast.weathercode || !hourlyForecast.windspeed_10m) {
+            return <p>Loading...</p>; // Handle case where data is not yet available
+        }
+    
         return (
             <Carousel
                 showThumbs={false}
                 showStatus={false}
                 infiniteLoop={false}
                 emulateTouch={true}
-                selectedItem={currentHour} 
+                selectedItem={currentHour}
                 centerMode={true}
-                centerSlidePercentage={100 / 8} 
+                centerSlidePercentage={100 / 8}
                 swipeable={true}
                 dynamicHeight={true}
-                responsive={{
-                    0: { slidesToShow: 4 }, 
-                    768: { slidesToShow: 6 }, 
-                    1024: { slidesToShow: 10 }, 
-                }}
             >
                 {hourlyForecast.time &&
                     hourlyForecast.time.slice(0, 24).map((time, index) => {
-                        const isCurrent = new Date(time).getHours() === currentHour; 
+                        const isCurrent = new Date(time).getHours() === currentHour;
+        
+                        const weatherCode = hourlyForecast.weathercode ? hourlyForecast.weathercode[index] : null;
+                        const windSpeed = hourlyForecast.windspeed_10m ? hourlyForecast.windspeed_10m[index] : null;
+        
                         return (
                             <div
                                 key={index}
                                 className={`carousel-item ${isCurrent ? 'current-hour' : ''}`}
                                 style={{
-                                    backgroundColor: isCurrent ? '#ccc' : 'white', 
+                                    backgroundColor: isCurrent ? '#ccc' : 'white',
                                     padding: '10px',
                                     textAlign: 'center',
                                     borderRadius: '8px',
                                 }}
                             >
                                 <p>{new Date(time).getHours()}:00</p>
-                                <div className="weather-icon">{getWeatherIcon(hourlyForecast.weathercode[index])}</div>
-                                <p>Wind: {hourlyForecast.windspeed_10m[index]} km/h</p>
+                                <div className="weather-icon">
+                                    {weatherCode ? getWeatherIcon(weatherCode) : '-'}
+                                </div>
+                                <p>Wind: {windSpeed ? `${windSpeed} km/h` : 'N/A'}</p>
                             </div>
                         );
                     })}
             </Carousel>
         );
+        
     };
+    
+    
+    
 
     return (
         <div className="home-container">
@@ -290,3 +304,4 @@ const Home = () => {
 };
 
 export default Home;
+
